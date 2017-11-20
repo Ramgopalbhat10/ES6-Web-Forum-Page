@@ -6,7 +6,24 @@
 var Post = {
   findAll: function findAll() {
     return new Promise(function (res, rej) {
+<<<<<<< HEAD
       console.log("ok posts!");
+=======
+      var uri = "http://localhost/3000/posts";
+      var request = new XMLHttpRequest();
+      request.open("GET", uri, true);
+      request.onload = function () {
+        if (request.status >= 200 && request.status < 400) {
+          res(JSON.parse(request.response));
+        }
+      };
+
+      request.onerror = function () {
+        rej(new Error("Something went wrong"));
+      };
+      request.send();
+      //console.log("ok posts!");
+>>>>>>> c48be638b86542f0b35f8b4b637a6f4806b4deaf
     });
   }
 };
@@ -17,6 +34,12 @@ var ui = {
   }
 };
 
+<<<<<<< HEAD
 Post.findAll().then(ui.renderPosts);
+=======
+Post.findAll().then(ui.renderPosts).catch(function (error) {
+  return console.log(error);
+});
+>>>>>>> c48be638b86542f0b35f8b4b637a6f4806b4deaf
 
 },{}]},{},[1]);

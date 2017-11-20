@@ -3,7 +3,20 @@
 let Post = {
   findAll() {
     return new Promise((res, rej) => {
-      console.log("ok posts!");
+      let uri = "http://localhost/3000/posts"
+      let request = new XMLHttpRequest();
+      request.open("GET", uri, true);
+      request.onload = () => {
+        if(request.status >= 200 && request.status < 400) {
+          res(JSON.parse(request.response));
+        }
+      };
+
+      request.onerror = () => {
+        rej(new Error("Something went wrong"));
+      }
+      request.send();
+      //console.log("ok posts!");
     });
   }
 }
@@ -14,4 +27,4 @@ let ui = {
   }
 }
 
-Post.findAll().then(ui.renderPosts);
+Post.findAll().then(ui.renderPosts).catch((error) => console.log(error));
